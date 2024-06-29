@@ -34,7 +34,7 @@ The current project creates 3 different containers, one for the frontend part us
 
 Working actually:
 	***-3 endpoints at the backend (category, category/id, products)***
-This endpoints can be requested by postman or browser, by now from frontend it just retrieve the data to a console.log in the category component.
+This endpoints can be requested by postman or browser, by now in the frontend it just retrieve and render the data from Categories and products
 
 Actually it uses @CrossOrigin in the controller to allow request from any browser outside the domain but lately i will implemente a side proxy server to make the request go throught it and bypass the CORS browser policies. 
 
