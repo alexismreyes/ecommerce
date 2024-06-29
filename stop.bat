@@ -1,0 +1,3 @@
+@echo off
+echo Stopping Docker Compose...
+docker-compose down --rmi all

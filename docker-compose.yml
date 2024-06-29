@@ -1,0 +1,51 @@
+version: '3.8'
+
+services:
+
+  react-ecommerce-frontend:
+    container_name: ecommerce_frontend
+    build:
+      context: ./frontend 
+      dockerfile: Dockerfile
+    tty: true
+    ports: 
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app/frontend
+      - /app/frontend/node_modules
+
+  mysql:
+    container_name: mysql-container
+    build:
+      context: ./backend/database   
+      dockerfile: Dockerfile         
+    ports:
+      - "3306:3306"
+    networks:
+      - ecommerce-network
+    volumes:
+      - mysql-data:/var/lib/mysql:rw
+    
+  ecommerce-app:
+    container_name: ecommerce-backend-container
+    build:
+      context: ./backend/com.ecommerce.app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - ecommerce-network
+    environment:
+      SPRING_PROFILES_ACTIVE: prod  # Use prod profile in Docker environment
+    volumes:
+    - ./backend/com.ecommerce.app/target:/app/backend/target
+    depends_on:
+      - mysql
+
+volumes:
+  mysql-data:
+
+networks:
+  ecommerce-network:
+    driver: bridge
+
