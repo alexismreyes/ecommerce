@@ -13,6 +13,7 @@ services:
     volumes:
       - ./frontend:/app/frontend
       - /app/frontend/node_modules
+      
 
   mysql:
     container_name: mysql-container
