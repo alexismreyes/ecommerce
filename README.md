@@ -1,5 +1,5 @@
 
-## e-commerce site (work in progress):
+## e-commerce app (work in progress - 3 Microservices):
 
 ***Stack used:***
 
@@ -10,6 +10,7 @@
 ***- TypeScript***
 ***- React***
 ***- React router dom 6***
+***- Redux-toolkit***
 ***- Axios for promise based HTTP client***
 
 ### Backend:
@@ -30,7 +31,7 @@ This project is intented to test all this technologies working together in one a
 ***
 
 ### Current features:
-The current project creates 3 different containers, one for the frontend part using react, one for the backend developed in Springboot and another container for the MySQL database.
+The current project creates 3 different containers (microservices), one for the frontend part using react, one for the backend developed in Springboot and another container for the MySQL database.
 
 Working actually:
 	***-3 endpoints at the backend (category, category/id, products)***
