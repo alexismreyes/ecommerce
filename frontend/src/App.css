@@ -1,42 +1,33 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+/* Ensure the body and html elements have full height */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+/* Container for the whole app */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+/* Main content styling */
+.main-content {
+  flex-grow: 1; /* Allow this to grow and fill available space */
+  margin-top: 5rem; /* Adjusted to account for the fixed header height */
+  margin-bottom: 4rem; /* Adjusted to account for the fixed footer height */
+  padding: 1rem; /* Add padding to prevent content from touching edges */
+  overflow-y: auto; /* Allow scrolling if content overflows */
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+.center-div{
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
 }
 
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
+.show-pointer{
+  cursor: pointer;
 }

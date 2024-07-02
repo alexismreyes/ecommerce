@@ -38,6 +38,7 @@ This endpoints can be requested by postman or browser, by now in the frontend it
 
 Actually it uses @CrossOrigin in the controller to allow request from any browser outside the domain but lately i will implemente a side proxy server to make the request go throught it and bypass the CORS browser policies. 
 
+
 ***
 
 ### Pendant features:
