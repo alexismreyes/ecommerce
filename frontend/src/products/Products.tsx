@@ -3,16 +3,30 @@ import { useEffect, useState } from "react";
 import { Product } from "../interfaces/Product";
 import { SortConfigProduct } from "../interfaces/SortConfig";
 import "../assets/CommonStyle.css"
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProductsThunk, setProducts } from "../redux/productsSlice";
 
 const Products = () => {
-  const [products, setProducts] = useState<Product[]>([]);
+
+  const dispatch = useDispatch();
+  const products = useSelector((state)=>state.products);
+
+  //const [products, setProducts] = useState<Product[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfigProduct>({key:'id',ascending:true});
 
-  useEffect(() => {
+ /*  useEffect(() => {
     axios.get("http://localhost:8080/products/").then((response) => {
       setProducts(response.data);
     });
-  }, []);
+  }, []); */
+
+  useEffect(()=>{
+    dispatch(fetchProductsThunk())
+    .then((response)=>{
+      dispatch(setProducts(response.payload));
+    })
+  }
+,[dispatch]);
 
   const handleSort = ( key: keyof Product ) =>{
 
