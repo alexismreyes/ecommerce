@@ -1,0 +1,10 @@
+.partners-bar-row{
+    display: flex;
+    justify-content: space-between; /* Space between items */    
+}
+
+.partner-div{
+    flex: 1;
+    padding: 10px; /* Optional: Add padding inside each partner div */   
+    text-align: center; /* Center text inside each partner div */
+}

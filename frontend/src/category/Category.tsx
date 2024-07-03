@@ -63,6 +63,7 @@ const Category = () =>{
     if(!categories || categories.length===0) return <h1>FETCHING DATA...</h1>
 
     return (
+        <>
         <div className="center-div">
         <table className="styled-table">
             <thead>
@@ -82,9 +83,10 @@ const Category = () =>{
                     ))}                    
                 </tbody>
             
-        </table>
-        </div>
-
+        </table>                
+        </div>    
+        
+        </>
     )
 }
 

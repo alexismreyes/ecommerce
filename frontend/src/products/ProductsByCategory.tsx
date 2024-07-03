@@ -1,11 +1,15 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../interfaces/Product";
 import { SortConfigProduct } from "../interfaces/SortConfig";
 import "../assets/CommonStyle.css"
+import { PartnersContext } from "../context/PartnerContext";
 
 const ProductsByCategory = () => {
+
+  const partners = useContext(PartnersContext); //i use this here just to test Context API working
+
   const params = useParams();
   const [ProductsByCategory, setProductsByCategory] = useState<Product[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfigProduct>({key:'id',ascending:true});
@@ -16,6 +20,7 @@ const ProductsByCategory = () => {
       .then((response) => {
         //console.log(response);
         setProductsByCategory(response.data);
+        console.log("Partners retrieved from Context API mechanism ->",partners); //loggin from context API
       })
       .catch(() => {
         console.log("No data");

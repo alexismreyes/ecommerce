@@ -8,4 +8,5 @@
     color: white; /* Adjust the text color as needed */
     padding: 1rem;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */    
+    z-index: 1000;
   }
