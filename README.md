@@ -11,13 +11,17 @@
 ***- React***
 ***- React router dom 6***
 ***- Redux-toolkit***
+***- React context API***
 ***- Axios for promise based HTTP client***
+
 
 ### Backend:
 
 ***- Springboot (as Java Framework)***
+***- Spring JWT management for authentication***
 ***- Maven (to manage springboot project dependencies)***
 ***- MySQL database for persistence***
+
 
 ***
 
@@ -36,9 +40,17 @@ The current project creates 3 different containers (microservices), one for the 
 
 Working actually:
 	***-3 endpoints at the backend (category, category/id, products)***
-This endpoints can be requested by postman or browser, by now in the frontend it just retrieve and render the data from Categories and products
+This endpoints can be requested by postman or browser. 
+Use this credentials for currently login:
+username: malexismreyes@gmail.com
+password: 123456789
 
-Actually it uses @CrossOrigin in the controller to allow request from any browser outside the domain but lately i will implemente a side proxy server to make the request go throught it and bypass the CORS browser policies. 
+username: mikemanzano@hotmail.com
+password: 123456789
+
+or create your own user in the User table directly in the DB (will develop soon the Register form)
+
+Actually it uses @CrossOrigin in the controller to allow request from any browser outside the domain but lately i will implement a side proxy server to make the request go throught it and bypass the CORS browser policies. 
 
 
 ***
@@ -50,8 +62,12 @@ Actually it uses @CrossOrigin in the controller to allow request from any browse
 ***- Extra React Components (clearly)***
 ***- Extra features yet to define***
 	
-	
+***
 
+### Extra features:
+In the backend at service package i include a PasswordMigrationService which will convert your created user passwords from plain text to Bcrypt hash once you run the backend service.
+
+***
 
 ### Steps to install:
 
