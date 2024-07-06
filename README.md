@@ -83,11 +83,11 @@ In the backend at service package i include a PasswordMigrationService which wil
 
 5) yarn (to download dependencies - install yarn in your system if needed)
 
-6) restart the frontend container if needed
+6) stop (to remove the containers)
+
+7) run (again to create the containers again and include the downloaded dependencies with yarn...i will map the node_modules soon for not need to stop an re run the containers again)
 
 (to install dependencies / install yarn if not installed -> sudo npm install -g yarn)
-
-7) yarn dev
 
 8) Import the database structure/data to the database using the dump file inside backend/database/sql_querys/ecommerce_db_somedate.sql
 
