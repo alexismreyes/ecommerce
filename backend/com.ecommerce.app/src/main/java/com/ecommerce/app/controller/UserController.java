@@ -1,5 +1,6 @@
 package com.ecommerce.app.controller;
 
+import com.ecommerce.app.dto.LoginRequest;
 import com.ecommerce.app.model.service.UserService;
 import com.ecommerce.app.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/user")
 @CrossOrigin(origins = {"http://localhost:5173"})
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -32,8 +33,10 @@ public class UserController {
 
     @PostMapping("/login")
     @ResponseBody
-    public ResponseEntity<String> login(@RequestParam String email,
-                                        @RequestParam String password) {
+    public ResponseEntity<String> login(@RequestBody LoginRequest loginRequest) {
+
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
 
         try {
             UsernamePasswordAuthenticationToken authenticationToken =
