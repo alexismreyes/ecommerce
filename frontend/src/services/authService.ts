@@ -1,8 +1,6 @@
 import axios from "axios";
 import { LoginResponse } from "../interfaces/LoginResponse";
 import { jwtDecode } from "jwt-decode";
-import { useNavigate } from "react-router-dom";
-
 
 const API_URL_LOGIN = "http://localhost:8080/user/login";
 
@@ -14,35 +12,35 @@ class AuthService{
                 email: username,
                 password: password
             })
-            .then((response)=>{
+            .then((response)=>{                  
                 if(response.data){
-                    localStorage.setItem('user', JSON.stringify(response.data));
-                }
-                console.log("YOU ARE IN!!!->",response);
+                    const jwt = response.data.token;  //we use response.data.token because we return a response .token from backend to match LoginResponse interface datatype (check UserController -> response.put("token", jwt);)                                           
+                    localStorage.setItem('jwt', jwt);
+                }                
                 return response.data
             })            
     }
 
     //logout method
     logout(){
-        localStorage.removeItem('user');              
+        localStorage.removeItem('jwt');              
     }
 
     //get current user method
     getCurrentUser(): LoginResponse | null{
-        const userStr = localStorage.getItem('user');
-        if(userStr){
-            return JSON.parse(userStr) as LoginResponse;
+        const userJwt = localStorage.getItem('jwt');
+        if(userJwt){
+            return JSON.parse(userJwt) as LoginResponse;
         }
         return null;            
     }
 
     //is Authenticated or not
     isAutheticated():boolean{
-        const user = this.getCurrentUser();
+        const userJwt = this.getCurrentUser();
 
-        if(user && user.token){
-            const decodedToken: any = jwtDecode(user.token);
+        if(userJwt && userJwt.token){
+            const decodedToken: any = jwtDecode(userJwt.token);
             return decodedToken.exp > Date.now() / 1000;
         }
         return false;

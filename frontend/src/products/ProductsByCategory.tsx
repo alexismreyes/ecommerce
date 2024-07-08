@@ -15,8 +15,13 @@ const ProductsByCategory = () => {
   const [sortConfig, setSortConfig] = useState<SortConfigProduct>({key:'id',ascending:true});
 
   useEffect(() => {
+
+    const jwt = localStorage.getItem('jwt');
+    
     axios
-      .get(`http://localhost:8080/category/${params.categoryId}`)
+      .get(`http://localhost:8080/category/${params.categoryId}`,{        
+        headers: {'Authorization': `Bearer ${jwt}`}
+    })
       .then((response) => {
         //console.log(response);
         setProductsByCategory(response.data);

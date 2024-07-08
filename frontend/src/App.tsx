@@ -3,11 +3,16 @@ import './App.css'
 import Footer from './Footer'
 import Header from './Header'
 import PartnersBar from './PartnersBar'
+import { getJwtToken } from './helpers/authHelper'
 
 function App() {
 
-  //si no esta logeado lleva al usuario al login
-  if(!localStorage.getItem("user")) return <Navigate to="/login" />
+  const jwttoken = getJwtToken();
+
+  //si no esta logeado con una jwt validad lleva al usuario al login nuevamente
+  if(!jwttoken)
+    return <Navigate to="/login" /> 
+ 
 
   return (
     <>

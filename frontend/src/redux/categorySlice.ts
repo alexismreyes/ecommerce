@@ -4,7 +4,12 @@ import { Category } from '../interfaces/Category';
 
 //Step 1 -> create the thunk middleware to fetch the categories
 export const fetchCategoriesThunk = createAsyncThunk('categories/fetchCategoriesThunk', async()=>{
-    const response = await axios.get('http://localhost:8080/category/');
+    
+    const jwt = localStorage.getItem('jwt');     
+    
+    const response = await axios.get('http://localhost:8080/category/',{        
+        headers: {'Authorization': `Bearer ${jwt}`}
+    });
     //console.log("Data fetched in the thunk->",response.data)
     return response.data.sort((a:Category,b:Category) => a.id - b.id)
     });
