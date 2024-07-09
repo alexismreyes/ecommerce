@@ -101,7 +101,7 @@ In the backend at service package i include a PasswordMigrationService which wil
 
 8) To open the springboot project go to backend/com.ecommerce.app and open it using your preferred IDE (i use IntelliJ) 
 
-9) Initially the backend runs inside a container. If you need to make changes to backend code, turn it off and work your changes locally, uncomment the NODE_ENV=development in the docker-compose.yml and comment the  NODE_ENV=production, execute the command ***stop*** inside ecommerce folder to remove the containers. When you need to send those changes to container just generate the JAR file using maven and restart the backend-container to include the new generated jar . then execute ***run*** again to build the containers again including the new JAR. You decide which backend to use using that line in the docker-compose file, so use it as you need it. Take into account to turn off your local backend previous to run the container version because both uses the same port 8080.
+9) Initially the backend runs inside a container. If you need to make changes to backend code, turn it off and work your changes locally, uncomment the NODE_ENV=development in the docker-compose.yml and comment the  NODE_ENV=production, execute the command ***stop*** inside ecommerce folder to remove the containers. When you need to send those changes to container just generate the JAR file using maven,  then execute ***run*** again to build the containers again including the new generated JAR. You decide which backend to use using that line in the docker-compose file, so use it as you need it. Take into account to turn off your local backend previous to run the container version because both uses the same port 8080.
 
 10) Pray it works!!!! Mine's working fine!!! =)
 
