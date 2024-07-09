@@ -1,13 +1,14 @@
 import axios from "axios";
 import { LoginResponse } from "../interfaces/LoginResponse";
 import { jwtDecode } from "jwt-decode";
+import { User } from "../interfaces/User";
 
-const API_URL_LOGIN = "http://localhost:8080/user/login";
+//const API_URL_LOGIN = "http://localhost:8080/user/login";
 
 class AuthService{
 
-    //login method
-    login(username: string,password: string): Promise<LoginResponse>{
+    //login method using direct url to backend endpoint
+    /* login(username: string,password: string): Promise<LoginResponse>{
             return axios.post<LoginResponse>(API_URL_LOGIN, {
                 email: username,
                 password: password
@@ -16,10 +17,25 @@ class AuthService{
                 if(response.data){
                     const jwt = response.data.token;  //we use response.data.token because we return a response .token from backend to match LoginResponse interface datatype (check UserController -> response.put("token", jwt);)                                           
                     localStorage.setItem('jwt', jwt);
+                    this.getUserInfo();
                 }                
                 return response.data
             })            
-    }
+    } */
+
+    //login method using side server proxy in express
+    async login(email: string,password: string): Promise<LoginResponse>{
+        const response = await fetch("http://localhost:3001/sideserver/login", {
+            method: 'POST',            
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({email, password})            
+        })   
+        const jwt = await response.json();   //we use response.data.token in side server because we return a response .token from backend to match LoginResponse interface datatype (check UserController -> response.put("token", jwt);)                                           
+        localStorage.setItem('jwt', jwt);
+        //this.getUserInfo();          
+        return jwt                                     
+    }           
+
 
     //logout method
     logout(){
@@ -27,7 +43,7 @@ class AuthService{
     }
 
     //get current user method
-    getCurrentUser(): LoginResponse | null{
+    getCurrentJwt(): LoginResponse | null{
         const userJwt = localStorage.getItem('jwt');
         if(userJwt){
             return JSON.parse(userJwt) as LoginResponse;
@@ -37,13 +53,28 @@ class AuthService{
 
     //is Authenticated or not
     isAutheticated():boolean{
-        const userJwt = this.getCurrentUser();
+        const userJwt = this.getCurrentJwt();
 
         if(userJwt && userJwt.token){
             const decodedToken: any = jwtDecode(userJwt.token);
             return decodedToken.exp > Date.now() / 1000;
         }
         return false;
+    }
+
+
+    getUserInfo(){
+
+        const jwt = localStorage.getItem('jwt');
+
+        axios.get("http://localhost:8080/user/info",{
+            headers: {
+                'Authorization': `Bearer ${jwt}`
+            }
+        })
+        .then(
+            (response)=> console.log("User from backend->",response.data)
+        )
     }
 
 }

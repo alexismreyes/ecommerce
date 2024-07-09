@@ -1,6 +1,11 @@
+import logo from './assets/logo2.webp'
+import "./assets/Home.css"
+
 const Home = () =>{
-    return (
-        <h1>SOY EL HOME DE LA APLICACION</h1>
+    return (        
+        <div className="logo">
+            <img src={logo} className="logo-img" />    
+        </div>
     )
 }
 

@@ -19,7 +19,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-@CrossOrigin(origins = {"http://localhost:5173"})
+//@CrossOrigin(origins = {"http://localhost:5173"})
 @RequestMapping("/user")
 public class UserController {
 
@@ -69,13 +69,4 @@ public class UserController {
 
         }
     }
-
-
-    @GetMapping("/user/info")
-    public ResponseEntity<User> getUserInfo(@RequestParam String email){
-        return new ResponseEntity<>(userService.getUserByEmail(email),HttpStatus.OK);
-    }
-
-
-
 }

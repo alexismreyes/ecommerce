@@ -10,6 +10,8 @@ services:
     tty: true
     ports: 
       - "5173:5173"
+    networks:
+      - ecommerce-network
     volumes:
       - ./frontend:/app/frontend
       - /app/frontend/node_modules
@@ -42,6 +44,24 @@ services:
     - ./backend/com.ecommerce.app/target:/app/backend/target
     depends_on:
       - mysql
+
+
+  express-side-server:
+    container_name: express-sideserver-proxy
+    build:
+      context: ./sideserver 
+      dockerfile: Dockerfile
+    tty: true
+    ports: 
+      - "3001:3001"
+    networks:
+      - ecommerce-network
+    volumes:
+      - ./sideserver:/app/sideserver
+      - /app/sideserver/node_modules
+    environment:
+      #- NODE_ENV=production  # Change to development when working locally
+      - NODE_ENV=development      
 
 volumes:
   mysql-data:

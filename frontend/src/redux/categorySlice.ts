@@ -7,11 +7,18 @@ export const fetchCategoriesThunk = createAsyncThunk('categories/fetchCategories
     
     const jwt = localStorage.getItem('jwt');     
     
-    const response = await axios.get('http://localhost:8080/category/',{        
+    //Direct request if we declare CORS at the backend Controller
+    /* const response = await axios.get('http://localhost:8080/category/',{        
         headers: {'Authorization': `Bearer ${jwt}`}
-    });
-    //console.log("Data fetched in the thunk->",response.data)
-    return response.data.sort((a:Category,b:Category) => a.id - b.id)
+    }); */    
+
+    //get Categories using side server proxy in express    
+        const response = await fetch("http://localhost:3001/sideserver/category/", {                      
+            headers: { 'Authorization': `Bearer ${jwt}` }                  
+        });   
+        const data = await response.json();                                                        
+        //console.log("categories from sideserver->",data);           
+        return data.sort((a:Category,b:Category) => a.id - b.id)
     });
 
 //Step 2 ->Create the slice

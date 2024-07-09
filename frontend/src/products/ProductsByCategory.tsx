@@ -14,10 +14,9 @@ const ProductsByCategory = () => {
   const [ProductsByCategory, setProductsByCategory] = useState<Product[]>([]);
   const [sortConfig, setSortConfig] = useState<SortConfigProduct>({key:'id',ascending:true});
 
-  useEffect(() => {
+/*   useEffect(() => {
 
-    const jwt = localStorage.getItem('jwt');
-    
+    const jwt = localStorage.getItem('jwt');    
     axios
       .get(`http://localhost:8080/category/${params.categoryId}`,{        
         headers: {'Authorization': `Bearer ${jwt}`}
@@ -30,7 +29,26 @@ const ProductsByCategory = () => {
       .catch(() => {
         console.log("No data");
       });
-  }, []);
+  }, []); */
+
+useEffect(()=>{
+
+      const jwt = localStorage.getItem('jwt');
+      const category_id = params.categoryId;      
+
+      const getProductsByCategory = async () =>{
+
+        const response = await fetch(`http://localhost:3001/sideserver/category/${category_id}`, {                      
+          headers: { 'Authorization': `Bearer ${jwt}` }                          
+          });   
+        const data = await response.json();
+        setProductsByCategory(data);
+        console.log("Partners retrieved from Context API mechanism ->",partners); //loggin from context API
+      }
+       
+      getProductsByCategory();     
+},[]);
+  
 
 
   //sort table
