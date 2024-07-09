@@ -1,5 +1,5 @@
 
-## e-commerce app (work in progress - 3 Microservices):
+## e-commerce app (work in progress - 4 Microservices):
 
 ***Stack used:***
 
@@ -22,26 +22,44 @@
 ***- Maven (to manage springboot project dependencies)***
 ***- MySQL database for persistence***
 
+***
+### MIDDLEWARE:
+
+***- Express.js server as side server proxy***
 
 ***
 
-***- DOCKER as container manager***
+### DevOps Tool:
+
+***- DOCKER***
 
 
 ***
 
 ### Disclaimer:  
-This project is intented to test all this technologies working together in one application, as my POV just pretend to be a guideline o structure to test some features of each of these technologies, it doesnt pretend to resolve any specific requirement, i make it just to practice, however if anybody finds it useful feel free to use it as you need it.
+This project is intented to test all this technologies working together in one application, as my POV just pretend to be a guideline o structure to test some features of each of these technologies, it doesn't pretend to resolve any specific requirement, i make it just to practice, however if anybody finds it useful feel free to use it as you need it.
 ***
 
 
 ### Current features:
-The current project creates 3 different containers (microservices), one for the frontend part using react, one for the backend developed in Springboot and another container for the MySQL database.
+The current project creates 4 different containers (microservices):
+
+***Frontend container:*** it implements react, and the others technologies cited above.
+
+***Backend container:*** it uses the generated jar from a springboot project inside the backend folder.
+
+***Sideserver proxy container:*** make the requests to the backend as sideserver proxy to bypass CORS browsers policies.
+
+***Database container:*** container for the MySQL database.
+
+***
 
 Working actually:
 	***-3 endpoints at the backend (category, category/id, products)***
 This endpoints can be requested by postman or browser. 
-Use this credentials for currently login:
+
+You can use this credentials for login:
+
 username: malexismreyes@gmail.com
 password: 123456789
 
@@ -50,15 +68,11 @@ password: 123456789
 
 or create your own user in the User table directly in the DB (will develop soon the Register form)
 
-Actually it uses @CrossOrigin in the controller to allow request from any browser outside the domain but lately i will implement a side proxy server to make the request go throught it and bypass the CORS browser policies. 
-
-
 ***
 
 ### Pendant features:
 
 ***- Extra enpdoints (of course)***
-***- Side Server Proxy***
 ***- Extra React Components (clearly)***
 ***- Extra features yet to define***
 	
@@ -71,32 +85,35 @@ In the backend at service package i include a PasswordMigrationService which wil
 
 ### Steps to install:
 
-1)  git clone 
- 
+1)  git clone  
 
 2)  cd ecommerce
- 
 
-3)  run (it execute the bat file which invoke the docker-compose.yml)
+3) cd frontend 
 
-4) cd frontend 
+4) yarn (to download dependencies - install yarn in your system if needed) (to install dependencies / install yarn if not installed -> sudo npm install -g yarn)
 
-5) yarn (to download dependencies - install yarn in your system if needed)
+5) cd .. for going back to ecommerce folder
 
-6) stop (to remove the containers)
+6) execute commmand ***run*** inside ecommerce folder (it execute the bat file which invoke the docker-compose.yml)
 
-7) run (again to create the containers again and include the downloaded dependencies with yarn...i will map the node_modules soon for not need to stop an re run the containers again)
+7) Import the database structure/data to the database using the dump file inside backend/database/sql_querys/ecommerce_db_somedate.sql
 
-(to install dependencies / install yarn if not installed -> sudo npm install -g yarn)
+8) To open the springboot project go to backend/com.ecommerce.app and open it using your preferred IDE (i use IntelliJ) 
 
-8) Import the database structure/data to the database using the dump file inside backend/database/sql_querys/ecommerce_db_somedate.sql
+9) Initially the backend runs inside a container. If you need to make changes to backend code, turn it off and work your changes locally, uncomment the NODE_ENV=development in the docker-compose.yml and comment the  NODE_ENV=production, execute the command ***stop*** inside ecommerce folder to remove the containers. When you need to send those changes to container just generate the JAR file using maven and restart the backend-container to include the new generated jar . then execute ***run*** again to build the containers again including the new JAR. You decide which backend to use using that line in the docker-compose file, so use it as you need it. Take into account to turn off your local backend previous to run the container version because both uses the same port 8080.
 
-9) To open the springboot project go to backend/com.ecommerce.app and open it using your preferred IDE (i use IntelliJ) 
+10) Pray it works!!!! Mine's working fine!!! =)
 
-10) Initially the backend runs in a container but i suggest to turn it off and work your changes locally, once you need to send those changes to container just generate the JAR file using maven and restart the backend-container to include the new generated jar. You can see it has two application properties files, the dev one uses localhost:3306 to connect to the containized mysql, the prod one uses the mysql-container:3306 to link with the container directly from the generated JAR
-
-11) Pray it works!!!! Mine's working fine!!! =)
 
 ***
+
+### About the generated JAR for the backend
+
+The generated jar uses any of the two application properties files to connect to the database, the dev one uses localhost:3306 address to connect to the contanerized mysql, the prod one uses the mysql-container:3306 address to link with the container directly from the generated JAR
+
+***
+
+### URL
 
 Frontend URL: http://localhost:5173
