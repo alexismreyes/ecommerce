@@ -1,12 +1,21 @@
 
 ## e-commerce app (work in progress - 4 Microservices):
 
-***Stack used:***
+### Pre-requisites:
+
+***- Node.js***
+
+***- Docker***
+
+***- JDK*** (if you need to make changes to Spring backend)
+
+***
+### Stack used:
 
 ### Frontend:
 
-***- Node.js***
-***- VITE***
+***- Vite***
+***- Javascript***
 ***- TypeScript***
 ***- React***
 ***- React router dom 6***
@@ -29,12 +38,6 @@
 
 ***
 
-### DevOps Tool:
-
-***- DOCKER***
-
-
-***
 
 ### Disclaimer:  
 This project is intented to test all this technologies working together in one application, as my POV just pretend to be a guideline o structure to test some features of each of these technologies, it doesn't pretend to resolve any specific requirement, i make it just to practice, however if anybody finds it useful feel free to use it as you need it.
