@@ -2,11 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCounter } from "./redux/counterSlice";
 import { PartnersContext } from "./context/PartnerContext";
+import {axiosAsync, axiosPromise, fetchAsync, fetchPromise} from "./helpers/requestTypes.ts";
 
 const TestJS = () =>{
 
     //values stored in context api
     const partners = useContext(PartnersContext);
+
+    const jwt = localStorage.getItem("jwt");
 
     /* SORTING AN ARRAY */
     const unsortedArray = [3,7,9,1,4,5,99,12,14,15];
@@ -42,6 +45,24 @@ const TestJS = () =>{
     const dispatch = useDispatch();
     const counter = useSelector((state)=>state.myCounterState);
 
+
+    /* Different ways to request data from API */
+
+    const fetchAsyncFn = () =>{
+        fetchAsync(jwt);
+    }
+
+    const fetchPromiseFn = () =>{
+        fetchPromise(jwt);
+    }
+
+    const axiosAsyncFn = () =>{
+        axiosAsync(jwt);
+    }
+
+    const axiosPromiseFn = () =>{
+        axiosPromise(jwt);
+    }
     
     return(
         <>
@@ -55,6 +76,21 @@ const TestJS = () =>{
             <label>Value for counter using redux-toolkit</label>
             <label>counter = {`${counter}`}</label><br /><br />
             <button onClick={()=>dispatch(setCounter())}>Add 1 to counter</button>
+        </div>
+        <br /><br />
+        <div>
+            <h1>Request types section - check console</h1>
+            <label>fetch async/await</label><br/><br/>
+            <button onClick={()=>fetchAsyncFn()}>fetch async/await</button>
+            <br/><br/>
+            <label>fetch promise</label><br/><br/>
+            <button onClick={()=>fetchPromiseFn()}>fetch promise</button>
+            <br/><br/>
+            <label>axios async/await</label><br/><br/>
+            <button onClick={()=>axiosAsyncFn()}>axios async/await</button>
+            <br/><br/>
+            <label>axios promise</label><br/><br/>
+            <button onClick={()=>axiosPromiseFn()}>axios promise</button>
         </div>
 
         <h2>CHECK THE CONSOLE FOR MORE INFO</h2>
