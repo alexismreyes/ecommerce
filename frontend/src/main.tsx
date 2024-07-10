@@ -11,6 +11,7 @@ import store from "./redux/store.ts";
 import { PartnersContextProvider } from "./context/PartnerContext.tsx";
 import Login from "./users/Login.tsx";
 import Logout from "./users/Logout.tsx";
+import User from "./users/User.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   //Step 6 -> wrap the application using the Provider tag from react-redux
@@ -29,8 +30,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path=":categoryId" element={<ProductsByCategory />} />
             </Route>
 
-            <Route path="/products" element={<Products />} />
-
+            <Route path="/products" element={<Products />} />            
+            <Route path="/user" element={<User />} />
             <Route path="/test" element={<TestJS />} />
           </Route>
         </Routes>

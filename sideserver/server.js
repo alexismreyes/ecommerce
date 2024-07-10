@@ -61,7 +61,7 @@ app.get('/sideserver/products/', async (req, res) => {
       const response = await axios.get(`http://${backendUrl}/products/`,{
         headers: { 'Authorization': jwt}
       });
-        //console.log("response from backend->",response.data); 
+        console.log("response from backend->",response.data); 
         res.json(response.data); 
               
     } catch (error) {
@@ -75,7 +75,7 @@ app.get('/sideserver/products/', async (req, res) => {
 app.get('/sideserver/category/:category_id', async (req, res) => { 
     
     const jwt = req.headers.authorization; 
-    const category_id = req.params.category_id;  
+    const category_id = req.params.category_id;  //req.params used for url params -> url/param
     
     try {
       const response = await axios.get(`http://${backendUrl}/category/${category_id}`,{
@@ -89,6 +89,28 @@ app.get('/sideserver/category/:category_id', async (req, res) => {
         console.error("Error during backend request:", error.message);       
     }
   });
+
+
+    //userinfo
+app.get('/sideserver/user/info', async (req, res) => { 
+    
+  const jwt = req.headers.authorization; 
+  const email = req.query.email;   //req.query used for query params -> url?param=value
+
+  console.log("email received at sideserver->",email);
+  
+  try {
+    const response = await axios.get(`http://${backendUrl}/user/info?email=${email}`, {                      
+      headers: { 'Authorization': jwt }                          
+      }); 
+      //console.log("response from backend->",response.data); 
+      res.json(response.data); 
+            
+  } catch (error) {
+      //res.status(500).send(error.message);
+      console.error("Error during backend request:", error.message);       
+  }
+});
 
 
 app.listen(port, () => {

@@ -1,8 +1,12 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setCounter } from "./redux/counterSlice";
+import { PartnersContext } from "./context/PartnerContext";
 
 const TestJS = () =>{
+
+    //values stored in context api
+    const partners = useContext(PartnersContext);
 
     /* SORTING AN ARRAY */
     const unsortedArray = [3,7,9,1,4,5,99,12,14,15];
@@ -20,7 +24,7 @@ const TestJS = () =>{
     useEffect(()=>{        
             console.log("State from redux for categories->",categories)
             console.log("State from redux - products->",products);
-                       
+            console.log("Values from context API->",partners)                       
     }
     ,[]);
 

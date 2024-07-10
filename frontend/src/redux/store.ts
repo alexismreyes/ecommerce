@@ -2,13 +2,15 @@ import { configureStore } from '@reduxjs/toolkit'
 import categoryReducer from './categorySlice'
 import productsReducer from './productsSlice'
 import counterReducer from './counterSlice'
+import userReducer from './userSlice'
 
 //step 5 -> Configure the store
 const store = configureStore({
     reducer:{
         categories: categoryReducer,
         products: productsReducer,
-        myCounterState: counterReducer
+        myCounterState: counterReducer,
+        userLoggedIn: userReducer
     }
 })
 

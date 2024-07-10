@@ -2,6 +2,8 @@ import axios from "axios";
 import { LoginResponse } from "../interfaces/LoginResponse";
 import { jwtDecode } from "jwt-decode";
 import { User } from "../interfaces/User";
+import  store  from "../redux/store"
+import { setUser } from "../redux/userSlice";
 
 //const API_URL_LOGIN = "http://localhost:8080/user/login";
 
@@ -32,7 +34,7 @@ class AuthService{
         })   
         const jwt = await response.json();   //we use response.data.token in side server because we return a response .token from backend to match LoginResponse interface datatype (check UserController -> response.put("token", jwt);)                                           
         localStorage.setItem('jwt', jwt);
-        //this.getUserInfo();          
+        this.getUserInfo(email);          
         return jwt                                     
     }           
 
@@ -63,18 +65,25 @@ class AuthService{
     }
 
 
-    getUserInfo(){
+    getUserInfo(email: string){
 
         const jwt = localStorage.getItem('jwt');
 
-        axios.get("http://localhost:8080/user/info",{
+        axios.get("http://localhost:3001/sideserver/user/info",{
             headers: {
                 'Authorization': `Bearer ${jwt}`
+            },
+            params:{
+                email: email,
             }
         })
         .then(
-            (response)=> console.log("User from backend->",response.data)
+            (response)=> {
+                //console.log("User from backend->",response.data)
+                store.dispatch(setUser(response.data));
+            }
         )
+        .catch((error) => console.error("Error during request:", error));
     }
 
 }

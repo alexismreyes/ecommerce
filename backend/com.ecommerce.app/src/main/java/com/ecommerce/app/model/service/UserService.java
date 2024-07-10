@@ -29,4 +29,8 @@ public class UserService implements UserDetailsService {
                 .build();
 
     }
+
+    public User getUserByEmail(String email){
+        return userRepo.findByEmail(email);
+    }
 }

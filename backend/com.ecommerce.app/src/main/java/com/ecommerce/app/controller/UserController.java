@@ -69,4 +69,14 @@ public class UserController {
 
         }
     }
+
+
+    @GetMapping("/info")
+    public ResponseEntity<User> getUserInfo(@RequestParam(name = "email") String email){
+
+        User user = userService.getUserByEmail(email);
+        System.out.println("User info->"+user);
+
+        return new ResponseEntity<>(user,HttpStatus.OK);
+    }
 }
