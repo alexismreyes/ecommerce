@@ -7,7 +7,7 @@
 
 ***- Docker***
 
-***- JDK*** (if you need to make changes to Spring backend)
+***- JDK 17*** (if you need to make changes to Spring backend)
 
 ***
 ### Stack used:
